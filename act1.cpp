@@ -9,22 +9,27 @@ int main() {
     char choice;
     char cont;
 
-    cout << "Enter the first number: ";
-    cin >> num1;
-    cout << "Enter the second number: ";
-    cin >> num2;
-
     do {
-        cout << "\nMenu\n";
-        cout << "1. Add\n";
+        cout << "\n  Menu\n";
+        cout << "\n1. Add\n";
         cout << "2. Subtract\n";
         cout << "3. Multiply\n";
         cout << "4. Divide\n";
         cout << "5. Modulus\n";
         cout << "6. Power\n";
         cout << "7. Exit\n";
-        cout << "Enter your choice: ";
+        cout << "\nEnter your choice: ";
         cin >> choice;
+
+        if (choice == '7') {
+            cout << "Exiting...\n";
+            break;
+        }
+
+        cout << "\nEnter the first number: ";
+        cin >> num1;
+        cout << "Enter the second number: ";
+        cin >> num2;
 
         switch (choice) {
         case '1':
@@ -49,22 +54,16 @@ int main() {
         case '6':
             result = pow(num1, num2);
             break;
-        case '7':
-            cout << "Exiting..";
-            break;
         default:
             cout << "Invalid choice! Please choose a valid operation.";
             continue;
         }
-        cout << "The result is: " << result << endl;
+        cout << "\nThe result is: " << result << endl;
 
-        if (choice != '7') {
+        cout << "\nDo you wish to continue? [y/n]: ";
+        cin >> cont;
 
-            cout << "\nDo you wish to continue? [y/n]: ";
-            cin >> cont;
-        }
-
-    } while (choice != '7' && cont == 'y');
+    } while (cont == 'y');
 
     return 0;
 }

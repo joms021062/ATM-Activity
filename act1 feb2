@@ -1,0 +1,64 @@
+#include<iostream>
+
+int main() {
+
+	int input, balance = 0;
+	char choice, cont;
+
+	do {
+		std::cout << "=============================\n";
+		std::cout << "          WELCOME!            ";
+		std::cout << "\n=============================";
+		std::cout << "\n           Menu            \n";
+		std::cout << "1. Deposit" << std::endl;
+		std::cout << "2. Withdraw" << std::endl;
+		std::cout << "3. Check Balance" << std::endl;
+		std::cout << "4. Exit" << std::endl;
+		std::cout << "=============================";
+		std::cout << "\nEnter your choice: ";
+		std::cin >> choice;
+
+		switch (choice) {
+		case '1':
+			std::cout << "\nEnter value to Deposit: ";
+			std::cin >> input;
+			balance += input;
+			std::cout << "\nTransaction Successful! Your new balance is: " << balance << std::endl;
+			break;
+
+		case '2':
+			std::cout << "\nEnter value to withdraw: ";
+			std::cin >> input;
+			if (input <= balance) {
+				balance -= input;
+				std::cout << "\nTransaction Successful! Your new balance is: " << balance << std::endl;
+			}
+			else {
+				std::cout << "\nInsufficient balance." << std::endl;
+			}
+			break;
+
+		case '3':
+			std::cout << "\nYour  balance is: " << balance << std::endl;
+			break;
+
+		case '4':
+			std::cout << "\nThe program will now exit... " << std::endl;
+			break;
+
+		default:
+			std::cout << "\nInvalid Choice. Please Try Again." << std::endl;
+		}
+
+		if (choice != '4') {
+			std::cout << "\nDo you want another transaction?[y/n]:";
+			std::cin >> cont;
+		} 
+		
+
+	} while (choice != '4' && cont == 'y');
+
+	return 0;
+
+}
+

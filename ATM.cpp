@@ -4,46 +4,48 @@ using namespace std;
 
 int main() {
 
+	int stored = 1000;
 	int input;
-	char choice, cont;
+	char choice;
+	char cont;
 
 	do {
-		cout << "=============================\n";
-		cout << "          WELCOME!            ";
-		cout << "\n=============================";
-		cout << "\n           Menu            \n";
+		cout << "\nMenu\n";
 		cout << "1. Deposit" << endl;
 		cout << "2. Withdraw" << endl;
-		cout << "4. Exit" << endl;
-		cout << "=============================";
-		cout << "\nEnter your choice: ";
-			cin >> choice;
+		cout << "3. Exit" << endl;
+		cout << "\nEnter your choice: ";0
+		cin >> choice;
 
 		switch (choice) {
 		case '1':
-			cout << "\nEnter value to Deposit: ";
+			cout << "Enter value to Deposit: ";
 			cin >> input;
+			stored += input;
+			cout << "Your balance is: " << stored << endl;
 			break;
 
 		case '2':
-			cout << "\nEnter value to withdraw: ";
+			cout << "Enter value to withdraw: ";
 			cin >> input;
+			stored -= input;
+			cout << "Your balance is: " << stored << endl;
 			break;
 
-		case '4':
-			cout << "\nExiting... " << endl;
+		case '3':
+			cout << "Exiting... " << endl;
 			break;
 
 		default:
-			cout << "\nInvalid Choice. Please Try Again." << endl;
+			cout << "Invalid Choice. Please Enter Again." << endl;
 		}
-
-		if (choice != '4') {
+		
+		if (choice != '3') {
 			cout << "\nDo you want another transaction?[y/n]:";
 			cin >> cont;
 		}
 
-	} while (choice != '4' && cont == 'y');
+	} while (choice != '3' && cont == 'y');
 
 	return 0;
 

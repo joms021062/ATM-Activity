@@ -9,12 +9,57 @@ struct Product {
     std::string name = "";
 };
 
-int main() {
+void AddProduct(Product*& head, Product*& tail) {
+    Product* temp = new Product;
+    temp->next = NULL;
 
+    std::cout << "================================\n";
+    std::cout << "       Add New Product\n";
+    std::cout << "================================\n";
+    std::cout << "\nProduct Name: ";
+    std::cin >> temp->name;
+    std::cout << "Product Cost: ";
+    std::cin >> temp->cost;
+    std::cout << "Product Quantity: ";
+    std::cin >> temp->quantity;
+
+    if (!head) {
+        head = temp;
+    }
+    else {
+        tail->next = temp;
+    }
+
+    tail = temp;
+}
+
+void DisplayProducts(Product* head) {
+    Product* temp = head;
+
+    if (temp) {
+        do {
+            std::cout << "================================\n";
+            std::cout << "       Existing Product\n";
+            std::cout << "================================\n";
+            std::cout << "\nProduct Name: " << temp->name << "\n";
+            std::cout << "Product Cost: " << temp->cost << "\n";
+            std::cout << "Product Quantity: " << temp->quantity << "\n";
+
+            if (temp->next == NULL)
+                break;
+
+            temp = temp->next;
+        } while (true);
+    }
+    else {
+        std::cout << "\nNo Products Yet\n";
+    }
+}
+
+int main() {
     int choice;
     Product* head = NULL;
     Product* tail = NULL;
-    Product* temp = NULL;
 
     do {
         std::cout << "================================\n";
@@ -30,64 +75,15 @@ int main() {
         system("cls");
 
         switch (choice) {
-
         case 1:
-            std::cout << "================================\n";
-            std::cout << "        Add New Product\n";
-            std::cout << "================================\n";
-            temp = new Product;
-            temp->next = NULL;
-
-            std::cout << "\nProduct Name: ";
-            std::cin >> temp->name;
-
-            std::cout << "Product Cost: ";
-            std::cin >> temp->cost;
-
-            std::cout << "Product Quantity: ";
-            std::cin >> temp->quantity;
-
-            if (!head) {
-                head = temp;
-            }
-            else {
-                tail->next = temp;
-            }
-
-            tail = temp;
-
+            AddProduct(head, tail);
             break;
-
         case 2:
-
-            std::cout << "================================\n";
-            std::cout << "        Display Product\n";
-            std::cout << "================================\n";
-            temp = head;
-
-            if (temp) {
-                do {
-                    std::cout << "\nProduct Name: " << temp->name << "\n";
-
-                    std::cout << "Product Cost: " << temp->cost << "\n";
-
-                    std::cout << "Prodcut Quantity: " << temp->quantity << "\n";
-
-                    if (temp->next == NULL)
-                        break;
-
-                    temp = temp->next;
-                } while (true);
-            }
-            else {
-                std::cout << "\nNo Products Yet\n";
-            }
-
+            DisplayProducts(head);
             system("pause");
             break;
         case 3:
             return 0;
-
         default:
             break;
         }

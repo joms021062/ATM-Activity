@@ -1,0 +1,139 @@
+#include <iostream>
+#include <string>
+#include <ctime>
+
+// Structure to represent a product
+struct Product {
+    std::string name;
+    double price;
+    int quantity;
+    Product* next; // Pointer to the next product in the linked list
+};
+
+// Function to display menu and get user's choice
+int getMenuChoice() {
+    std::cout << "1. Add Product\n";
+    std::cout << "2. Delete Product\n";
+    std::cout << "3. Exit\n";
+    std::cout << "Enter your choice: ";
+    int choice;
+    std::cin >> choice;
+    return choice;
+}
+
+// Function to add a product to the end of the linked list
+void addProduct(Product*& head, int& numProducts) {
+    Product* newProduct = new Product;
+    std::cout << "Enter product name: ";
+    std::cin >> newProduct->name;
+    std::cout << "Enter product price: ";
+    std::cin >> newProduct->price;
+    std::cout << "Enter product quantity: ";
+    std::cin >> newProduct->quantity;
+    newProduct->next = nullptr;
+
+    if (head == nullptr) {
+        head = newProduct;
+    } else {
+        Product* current = head;
+        while (current->next != nullptr) {
+            current = current->next;
+        }
+        current->next = newProduct;
+    }
+
+    numProducts++;
+
+    std::cout << "Product added successfully!\n";
+}
+
+// Function to delete a product from the linked list
+void deleteProduct(Product*& head, int& numProducts) {
+    if (head == nullptr) {
+        std::cout << "No products to delete!\n";
+        return;
+    }
+
+    std::cout << "Products:\n";
+    Product* current = head;
+    int index = 1;
+    while (current != nullptr) {
+        std::cout << index << ". " << current->name << std::endl;
+        current = current->next;
+        index++;
+    }
+
+    std::cout << "Enter the index of the product to delete: ";
+    int pos;
+    std::cin >> pos;
+
+    if (pos < 1 || pos > numProducts) {
+        std::cout << "Invalid index!\n";
+        return;
+    }
+
+    if (pos == 1) {
+        Product* temp = head;
+        head = head->next;
+        delete temp;
+    } else {
+        Product* prev = nullptr;
+        current = head;
+        for (int i = 1; i < pos; ++i) {
+            prev = current;
+            current = current->next;
+        }
+        prev->next = current->next;
+        delete current;
+    }
+
+    numProducts--;
+
+    std::cout << "Product deleted successfully!\n";
+}
+
+// Function to log actions
+void logAction(const std::string& action) {
+    time_t now = time(0);
+    char* timeString = ctime(&now);
+    std::cout << "Action logged - " << action << " at " << timeString;
+}
+
+// Function to free memory allocated for the linked list
+void freeList(Product* head) {
+    while (head != nullptr) {
+        Product* temp = head;
+        head = head->next;
+        delete temp;
+    }
+}
+
+int main() {
+    Product* head = nullptr; // Pointer to the first product in the linked list
+    int numProducts = 0;
+
+    while (true) {
+        int choice = getMenuChoice();
+        switch (choice) {
+            case 1:
+                addProduct(head, numProducts);
+                logAction("Add Product");
+                break;
+            case 2:
+                deleteProduct(head, numProducts);
+                logAction("Delete Product");
+                break;
+            case 3:
+                std::cout << "Exiting...\n";
+
+                // Free memory for the linked list
+                freeList(head);
+
+                return 0;
+            default:
+                std::cout << "Invalid choice!\n";
+        }
+    }
+
+    return 0;
+}
